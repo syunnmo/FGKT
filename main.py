@@ -27,13 +27,8 @@ def main():
     parser.add_argument('--max_step', type=int, default=200, help='the allowed maximum length of a sequence')
     parser.add_argument('--fold', type=str, default='1', help='number of fold')
 
-    dataset = 'statics'
-
-    if dataset == 'assist2009_B':
-        parser.add_argument('--n_knowledge_concept', type=int, default=110, help='the number of unique questions in the dataset')
-        parser.add_argument('--n_exercise', type=int, default=16891, help='the number of unique questions in the dataset')
-        parser.add_argument('--data_dir', type=str, default='./data/assist2009_B', help='data directory')
-        parser.add_argument('--data_name', type=str, default='assist2009_B', help='data set name')
+    dataset = 'assist2009'
+    
     if dataset == 'assist2009':
         parser.add_argument('--n_knowledge_concept', type=int, default=110, help='the number of unique questions in the dataset')
         parser.add_argument('--n_exercise', type=int, default=16891, help='the number of unique questions in the dataset')
