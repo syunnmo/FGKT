@@ -8,10 +8,10 @@ from tqdm import tqdm
 
 def train(epoch_num, model, params, optimizer, train_kc_data, train_exercise_data, train_respose_data, train_exercise_respond_data):
     N = int(math.floor(len(train_exercise_data) / params.batch_size))
-    shuffle_index = np.random.permutation(train_exercise_data.shape[0])
-    train_kc_data = train_kc_data[shuffle_index]
-    train_exercise_data = train_exercise_data[shuffle_index]
-    train_exercise_respond_data = train_exercise_respond_data[shuffle_index]
+    # shuffle_index = np.random.permutation(train_exercise_data.shape[0])
+    # train_kc_data = train_kc_data[shuffle_index]
+    # train_exercise_data = train_exercise_data[shuffle_index]
+    # train_exercise_respond_data = train_exercise_respond_data[shuffle_index]
 
     pred_list = []
     target_list = []

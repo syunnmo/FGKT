@@ -3,17 +3,19 @@ import argparse
 from model import Model
 from run import train, test
 import torch.optim as optim
+from earlystop import EarlyStopping
 from dataloader import getDataLoader
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--gpu', type=int, default=-1, help='the gpu will be used, e.g "0,1,2,3"')
-    parser.add_argument('--max_iter', type=int, default=1000, help='number of iterations')
-    parser.add_argument('--lr', type=float, default= 0.003, help='learning rate')
+    parser.add_argument('--patience', type=int, default=2)
+    parser.add_argument('--max_iter', type=int, default=500, help='number of iterations')
+    parser.add_argument('--lr', type=float, default= 0.001, help='learning rate')
     parser.add_argument('--dropout', type=float, default=0.3)
     parser.add_argument('--maxgradnorm', type=float, default=50.0, help='maximum gradient norm')
     parser.add_argument('--hidden_layer', type=int, default=256)
-    parser.add_argument('--num_layer', type=int, default=1)  # rnn的层数
+    parser.add_argument('--num_layer', type=int, default=1)
     parser.add_argument('--num_heads', type=int, default=1, help='Number of head attentions.')
     parser.add_argument('--mode', type=int, default=3, help='mode of Integration Function. '
                                                             '1:ca'
@@ -25,7 +27,7 @@ def main():
     parser.add_argument('--max_step', type=int, default=200, help='the allowed maximum length of a sequence')
     parser.add_argument('--fold', type=str, default='1', help='number of fold')
 
-    dataset = 'assist2017'
+    dataset = 'statics'
 
     if dataset == 'assist2009_B':
         parser.add_argument('--n_knowledge_concept', type=int, default=110, help='the number of unique questions in the dataset')
@@ -76,44 +78,22 @@ def main():
         torch.cuda.set_device(params.gpu)
         model.cuda()
 
-    all_train_loss = {}
-    all_train_accuracy = {}
-    all_train_auc = {}
-    all_valid_loss = {}
-    all_valid_accuracy = {}
-    all_valid_auc = {}
-    best_valid_auc = 0
-    best_test_auc = 0
-    best_test_acc= 0
-
-
+    early_stopping = EarlyStopping(params.patience, verbose=True)
     for idx in range(params.max_iter):
         train_loss, train_accuracy, train_auc, train_RMSE = train(idx, model, params, optimizer, train_kc_data, train_exercise_data, train_respond_data, train_exercise_respond_data, )
         print('Epoch %d/%d, loss : %3.5f, auc : %3.5f, accuracy : %3.5f, RMSE : %3.5f' % (idx + 1, params.max_iter, train_loss, train_auc, train_accuracy, train_RMSE))
         with torch.no_grad():
             valid_loss, valid_accuracy, valid_auc, valid_RMSE  = test(model, params, valid_kc_data, valid_exercise_data, valid_respose_data, valid_exercise_respose_data)
             print('Epoch %d/%d, loss : %3.5f, valid auc : %3.5f, valid accuracy : %3.5f, RMSE : %3.5f' % (idx + 1, params.max_iter, valid_loss, valid_auc, valid_accuracy, valid_RMSE))
+
+        early_stopping(valid_loss, model)
+        if early_stopping.early_stop:
+            print("Early stopping")
+            break
+    model.load_state_dict(torch.load('checkpoint.pt'))
+    with torch.no_grad():
             test_loss, test_accuracy, test_auc, test_RMSE = test(model, params, test_kc_data, test_exercise_data, test_respose_data, test_exercise_respose_data)
             print("test_auc: %.4f\t test_accuracy: %.4f\t, RMSE : %4f\t test_loss: %.4f" % (test_auc, test_accuracy, test_RMSE,test_loss))
-
-        all_train_auc[idx + 1] = train_auc
-        all_train_accuracy[idx + 1] = train_accuracy
-        all_train_loss[idx + 1] = train_loss
-        all_valid_loss[idx + 1] = valid_loss
-        all_valid_accuracy[idx + 1] = valid_accuracy
-        all_valid_auc[idx + 1] = valid_auc
-
-        if test_auc > best_test_auc:
-            print('auc: %3.4f to %3.4f' % (best_test_auc, test_auc))
-            best_test_auc = test_auc
-
-        if test_accuracy > best_test_acc:
-            print('acc: %3.4f to %3.4f' % (best_test_acc, test_accuracy))
-            best_test_acc = test_accuracy
-
-        print('best_test_auc:  %3.5f' % (best_test_auc))
-        print('best_test_acc:  %3.5f' % (best_test_acc))
-
 
 if __name__ == "__main__":
     main()
