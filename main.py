@@ -9,7 +9,7 @@ from dataloader import getDataLoader
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--gpu', type=int, default=-1, help='the gpu will be used, e.g "0,1,2,3"')
-    parser.add_argument('--patience', type=int, default=2)
+    parser.add_argument('--patience', type=int, default=5)
     parser.add_argument('--max_iter', type=int, default=500, help='number of iterations')
     parser.add_argument('--lr', type=float, default= 0.001, help='learning rate')
     parser.add_argument('--dropout', type=float, default=0.3)
