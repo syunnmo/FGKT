@@ -1,6 +1,6 @@
 # FGKT
 Fine-Grained Knowledge Tracing model (FGKT).  
-This project is the Pytorch implementation for FGKT.
+This project is the Pytorch implementation for FGKT.  
 The article has not yet been published and is under review.   
 Thanks to the reviewers for their suggestions on the code, which have greatly improved its quality and readability.
 
