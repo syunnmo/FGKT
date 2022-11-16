@@ -25,6 +25,6 @@ __Environment__:
 
 # Running FGKT
 Here are some examples for using FGKT model (on ASSISTments Competition):  
-`python main.py --dataset assist2017`  
+  python main.py --dataset assist2017
 If you do not want to use the default parameters for your experiments, you can change the model parameters in the following way:  
 `python main.py --dataset assist2017 --gpu 0 --patience 5 --dropout 0.3 --num_heads 1  --mode 3 --exercise_embed_dim 128 --batch_size 32`
