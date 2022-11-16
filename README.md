@@ -10,3 +10,14 @@ If you would like to access the raw datasets, the raw datasets are placed in the
 * ASSISTments2015 : [address](https://sites.google.com/site/assistmentsdata/datasets/2015-assistments-skill-builder-data)
 * ASSISTments Competition : [address](https://sites.google.com/view/assistmentsdatamining/dataset)
 
+#Setups
+Service: 
+*Linux
+
+Environment:
+
+* python 3+
+* sklearn  0.21.3
+* tqdm 4.54.1
+* torch 1.7.0
+* numpy 1.19.2
