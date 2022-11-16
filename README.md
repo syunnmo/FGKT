@@ -22,3 +22,7 @@ __Environment__:
 * tqdm 4.54.1
 * torch 1.7.0
 * numpy 1.19.2
+
+# Running FGKT
+Here are some examples for using FGKT model (on ASSISTments2009):
+`python main.py --dataset assist2015 `
