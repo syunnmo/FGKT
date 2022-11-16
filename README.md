@@ -2,7 +2,7 @@
 Fine-Grained Knowledge Tracing model (FGKT).  
 This project is the Pytorch implementation for FGKT.  
   
-The article has not yet been published and is under review.   
+The manuscript has not yet been published and is under review.   
 Thanks to the reviewers for their suggestions on the code, which have greatly improved its quality and readability.
 
 # Dataset
@@ -44,4 +44,3 @@ Explanation of parameters:
 * mode: Selection of integration function.
 * exercise_embed_dim: Number of question embedding dimensions.
 * batch_size: Number of batch size.
-
