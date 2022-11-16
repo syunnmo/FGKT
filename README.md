@@ -42,5 +42,5 @@ Explanation of parameters:
 * lr: Learning rate
 * num_heads: Number of head attentions.
 * mode: Selection of integration function.
-* exercise_embed_dim: Number of question embedding dimensions.
+* exercise_embed_dim: Number of exercise embedding dimensions.
 * batch_size: Number of batch size.
