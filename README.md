@@ -1,5 +1,5 @@
 # FGKT
-Fine-Grained Knowledge Tracing model (FGKT)  
+Fine-Grained Knowledge Tracing model (FGKT).  
 The article has not yet been published and is under review.   
 Thanks to the reviewers for their suggestions on the code, which have greatly improved its quality and readability.
 
