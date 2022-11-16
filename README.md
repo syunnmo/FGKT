@@ -10,11 +10,12 @@ If you would like to access the raw datasets, the raw datasets are placed in the
 * ASSISTments2015 : [address](https://sites.google.com/site/assistmentsdata/datasets/2015-assistments-skill-builder-data)
 * ASSISTments Competition : [address](https://sites.google.com/view/assistmentsdatamining/dataset)
 
-#Setups
-Service: 
-*Linux
+# Setups
 
-Environment:
+__Service__: 
+* Linux
+
+__Environment__:
 
 * python 3+
 * sklearn  0.21.3
