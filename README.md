@@ -26,7 +26,7 @@ __Environment__:
 * numpy 1.19.2
 
 # Running FGKT
-Here are some examples for using FGKT model (on ASSISTments Competition):  
+Here is a example for using FGKT model (on ASSISTments Competition):  
 ```
   python main.py --dataset assist2017  
 ```
