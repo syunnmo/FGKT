@@ -1,5 +1,7 @@
 # FGKT
-Fine-Grained Knowledge Tracing model (FGKT) 
+Fine-Grained Knowledge Tracing model (FGKT)  
+The article has not yet been published and is under review.   
+Thanks to the reviewers for their suggestions on the code, which have greatly improved its quality and readability.
 
 # Dataset
 In 'data' folder, we have provided the processed datasets. 
@@ -35,9 +37,9 @@ If you do not want to use the default parameters for your experiments, you can c
 Explanation of parameters:  
 * gpu: Specify the GPU to be used, e.g '0,1,2,3'. If CPU is used then fill in -1.
 * patience: Maximum number of times if validation loss does not improve.
-* lr: The learning rate
+* lr: Learning rate
 * num_heads: Number of head attentions.
-* mode: The selection of integration function.
-* exercise_embed_dim: The number of question embedding dimensions.
-* batch_size: The number of batch size.
+* mode: Selection of integration function.
+* exercise_embed_dim: Number of question embedding dimensions.
+* batch_size: Number of batch size.
 
