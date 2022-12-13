@@ -6,10 +6,11 @@ import utils as utils
 from sklearn import metrics
 from tqdm import tqdm
 
-def train(epoch_num, model, params, optimizer, train_kc_data, train_exercise_data, train_respose_data, train_exercise_respond_data):
+def train(model, params, optimizer, train_kc_data, train_exercise_data, train_respose_data, train_exercise_respond_data, hasConcept):
     N = int(math.floor(len(train_exercise_data) / params.batch_size))
     # shuffle_index = np.random.permutation(train_exercise_data.shape[0])
-    # train_kc_data = train_kc_data[shuffle_index]
+    # if hasConcept == 1:
+    #     train_kc_data = train_kc_data[shuffle_index]
     # train_exercise_data = train_exercise_data[shuffle_index]
     # train_exercise_respond_data = train_exercise_respond_data[shuffle_index]
 
@@ -18,10 +19,14 @@ def train(epoch_num, model, params, optimizer, train_kc_data, train_exercise_dat
     epoch_loss = 0
     model.train()
     for idx in tqdm (range(N), desc='Training'):
-        data_length = train_kc_data.shape[0]
+        data_length = train_exercise_data.shape[0]
         begin, end = idx * params.batch_size, min((idx + 1) * params.batch_size, data_length - 1)
 
-        kc_one_seq = train_kc_data[begin : end, :]
+        if hasConcept == 1:
+            kc_one_seq = train_kc_data[begin : end, :]
+            input_kc = utils.varible(torch.LongTensor(kc_one_seq), params.gpu)
+        else:
+            input_kc = None
         exercise_one_seq = train_exercise_data[begin : end, :]
         exercise_respond_batch_seq = train_respose_data[begin : end, :]
 
@@ -29,7 +34,6 @@ def train(epoch_num, model, params, optimizer, train_kc_data, train_exercise_dat
         target = (target - 1) / params.n_exercise
         target = np.floor(target)
 
-        input_kc = utils.varible(torch.LongTensor(kc_one_seq), params.gpu)
         input_exercise = utils.varible(torch.LongTensor(exercise_one_seq), params.gpu)
         input_exercise_respond = utils.varible(torch.LongTensor(exercise_respond_batch_seq), params.gpu)
 
@@ -64,7 +68,7 @@ def train(epoch_num, model, params, optimizer, train_kc_data, train_exercise_dat
     return epoch_loss/N, accuracy, auc, RMSE
 
 
-def test(model, params, kc_data, exercise_data, respond_data, exercise_respond_data):
+def test(model, params, kc_data, exercise_data, respond_data, exercise_respond_data, hasConcept):
     N = int(math.floor(len(exercise_data) / params.batch_size))
     pred_list = []
     target_list = []
@@ -72,10 +76,15 @@ def test(model, params, kc_data, exercise_data, respond_data, exercise_respond_d
     model.eval()
 
     for idx in tqdm(range(N), desc='Validing/testing'):
-        data_length = kc_data.shape[0]
+        data_length = exercise_data.shape[0]
         begin, end = idx * params.batch_size, min((idx + 1) * params.batch_size, data_length - 1)
 
-        kc_one_seq = kc_data[begin : end, :]
+        if hasConcept == 1:
+            kc_one_seq = kc_data[begin : end, :]
+            input_kc = utils.varible(torch.LongTensor(kc_one_seq), params.gpu)
+        else:
+            input_kc = None
+
         exercise_one_seq = exercise_data[begin : end, :]
         exercise_respond_batch_seq = respond_data[begin : end, :]
 
@@ -83,7 +92,6 @@ def test(model, params, kc_data, exercise_data, respond_data, exercise_respond_d
         target = (target - 1) / params.n_exercise
         target = np.floor(target)
 
-        input_kc = utils.varible(torch.LongTensor(kc_one_seq), params.gpu)
         input_exercise = utils.varible(torch.LongTensor(exercise_one_seq), params.gpu)
         input_exercise_respond = utils.varible(torch.LongTensor(exercise_respond_batch_seq), params.gpu)
 
