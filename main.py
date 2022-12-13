@@ -30,22 +30,6 @@ def main():
     params = parser.parse_args()
     dataset = params.dataset
 
-    if dataset in {"assist2009_pid"}:
-        params.n_question = 110
-        params.batch_size = 24
-        params.seqlen = 200
-        params.data_dir = 'data/' + dataset
-        params.data_name = dataset
-        params.n_pid = 16891
-
-    if dataset == 'assist2009_B':
-        params.hasConcept = 1
-        params.max_step = 200
-        params.n_knowledge_concept = 110
-        params.n_exercise = 16891
-        params.data_dir = './data/assist2009_B'
-        params.data_name = 'assist2009_B'
-
     if dataset == 'assist2009':
         params.hasConcept = 1
         params.max_step = 200
