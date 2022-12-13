@@ -17,7 +17,7 @@ If you would like to access the raw datasets, the raw datasets are placed in the
 # Setups
 
 __Service__: 
-* Linux
+* Linux operation system
 
 __Environment__:
 
