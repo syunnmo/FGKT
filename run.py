@@ -8,11 +8,6 @@ from tqdm import tqdm
 
 def train(model, params, optimizer, train_kc_data, train_exercise_data, train_respose_data, train_exercise_respond_data, hasConcept):
     N = int(math.floor(len(train_exercise_data) / params.batch_size))
-    # shuffle_index = np.random.permutation(train_exercise_data.shape[0])
-    # if hasConcept == 1:
-    #     train_kc_data = train_kc_data[shuffle_index]
-    # train_exercise_data = train_exercise_data[shuffle_index]
-    # train_exercise_respond_data = train_exercise_respond_data[shuffle_index]
 
     pred_list = []
     target_list = []
