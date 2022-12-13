@@ -68,7 +68,6 @@ class Model(nn.Module):
             result = torch.index_select(data_i, dim=-2, index=index_i[i].squeeze(0))
             batch_data.append(result)
         p_historical_relevance = torch.cat(batch_data, 0)
-        # disttotal_scores：t时刻前序序列表现的相关性矩阵
         p_disttotal_scores = torch.sum(p_historical_relevance, dim=-2,
                                        keepdim=False)
 
