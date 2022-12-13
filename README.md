@@ -38,7 +38,7 @@ If you do not want to use the default parameters for your experiments, you can c
 ```
 Explanation of parameters:  
 * gpu: Specify the GPU to be used, e.g '0,1,2,3'. If CPU is used then fill in -1.
-* patience: Maximum number of times if validation loss does not improve.
+* patience: Maximum number of times if validation loss does not decrease.
 * lr: Learning rate
 * num_heads: Number of head attentions.
 * mode: Selection of integration function.
