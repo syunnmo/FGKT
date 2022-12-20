@@ -5,6 +5,8 @@ This project is the Pytorch implementation for FGKT.
 The manuscript has not yet been published and is under review.   
 Thanks to the reviewers for their suggestions on the code, which have greatly improved its quality and readability.
 
+If you have more questions about our experiments, you can contact us. email: shunm@m.scnu.edu.cn
+
 # Dataset
 In 'data' folder, we have provided the processed datasets. 
 If you would like to access the raw datasets, the raw datasets are placed in the following links:
